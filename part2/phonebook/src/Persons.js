@@ -3,9 +3,9 @@ import React from 'react'
 const Persons = ({filtered}) => {
   return (
     <div>
-      {filtered.map(({ name, phone }) => (
+      {filtered.map(({ name, number }) => (
         <p key={name}>
-          {name} {phone}
+          {name} {number}
         </p>
       ))}
     </div>

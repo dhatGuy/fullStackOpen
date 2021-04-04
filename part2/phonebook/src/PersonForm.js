@@ -9,7 +9,6 @@ const PersonForm = ({
 }) => {
   return (
     <form onSubmit={handleAdd}>
-      <h1>add new</h1>
       <div>
         name:{" "}
         <input value={newName} name="name" onChange={(e) => handleChange(e)} />

@@ -1,66 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Countries from "./Countries";
+import Search from "./Search";
 
 const App = () => {
-  const course = "Half Stack application development";
-  const parts = [
-    {
-      name: "Fundamentals of React",
-      exercises: 10,
-    },
-    {
-      name: "Using props to pass data",
-      exercises: 7,
-    },
-    {
-      name: "State of a component",
-      exercises: 14,
-    },
-  ];
+  const [query, setQuery] = useState("");
+  const [countries, setCountries] = useState([]);
+  let filteredCountries
 
-  const Header = ({ course }) => {
-    return (
-      <>
-        <h1>{course}</h1>
-      </>
-    );
+  useEffect(() => {
+    axios
+      .get(`https://restcountries.eu/rest/v2/all`)
+      .then(({ data }) => {
+        setCountries(data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
+  const toggleShow = (e) => {
+    setQuery(e.target.value)
   };
 
-  const Total = ({ parts }) => {
-    return (
-      <>
-        <p>
-          Number of exercises{" "}
-          {parts[0].exercises1 + parts[0].exercises2 + parts[0].exercises3}
-        </p>
-      </>
-    );
-  };
-
-  const Part = ({ part, exercises }) => {
-    return (
-      <>
-        <p>
-          {part} {exercises}
-        </p>
-      </>
-    );
-  };
-
-  const Content = ({ parts }) => {
-    return (
-      <div>
-        <Part part={parts[0].name} exercises={parts[0].exercises} />
-        <Part part={parts[1].name} exercises={parts[1].exercises} />
-        <Part part={parts[2].name} exercises={parts[2].exercises} />
-      </div>
-    );
-  };
-
+  filteredCountries = !query
+    ? countries
+    : countries.filter((country) =>
+        country.name.toLowerCase().includes(query.toLocaleLowerCase())
+      );
+      
   return (
     <div>
-      <Header course={course} />
-      <Content parts={parts} />
-      <Total parts={parts} />
+      <Search query={query} setQuery={setQuery} />
+      <Countries
+        query={query}
+        filteredCountries={filteredCountries}
+        toggleShow={toggleShow}
+      />
     </div>
   );
 };

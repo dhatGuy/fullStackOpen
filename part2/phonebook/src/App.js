@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import PersonForm from "./PersonForm";
 import Persons from "./Persons";
 import Filter from "./Filter";
-import axios from "axios"
+import phoneService from "./services/phonebook";
+import phonebook from "./services/phonebook";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,18 +11,45 @@ const App = () => {
   const [number, setNumber] = useState("");
   const [search, setSearch] = useState("");
 
-  useEffect(()=>{
-    axios.get("http://localhost:3001/persons").then(({data}) => setPersons(data)).catch(err=> console.log(err))
-  },[])
+  useEffect(() => {
+    phoneService
+      .getAll()
+      .then(({ data }) => setPersons(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleAdd = (e) => {
     e.preventDefault();
+    const newPerson = { name: newName, number };
+
     if (persons.some((person) => person.name === newName)) {
-      return alert(`${newName} is already added to phonebook`);
+      if (window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)) {
+        const person = persons.find((n) => n.name === newPerson.name);
+        const changedPerson = { ...person, number };
+
+        phonebook.update(changedPerson).then(({ data }) => {
+          setPersons(
+            persons.map((person) => (person.id !== data.id ? person : data))
+          );
+          setNewName("");
+          setNumber("");
+        });
+      }
+      return;
     }
-    setPersons([...persons, { name: newName, number, id: persons.length + 1 }]);
-    setNewName("");
-    setNumber("");
+    phoneService.create(newPerson).then(() => {
+      setPersons([...persons, newPerson]);
+      setNewName("");
+      setNumber("");
+    });
+  };
+
+  const handleDelete = (obj) => {
+    if (window.confirm(`Delete ${obj.name}?`)) {
+      phoneService.remove(obj).then(() => {
+        setPersons(persons.filter((person) => obj.id !== person.id));
+      });
+    }
   };
 
   const filtered = persons.filter((person) =>
@@ -46,7 +74,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons filtered={filtered} />
+      <Persons filtered={filtered} onDelete={handleDelete} />
     </div>
   );
 };

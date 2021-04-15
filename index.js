@@ -1,8 +1,10 @@
 const express = require("express");
 const morgan = require('morgan')
 const app = express();
-const PORT = 3001;
+const cors = require('cors');
+const PORT = process.env.PORT || 3001;
 
+app.use(cors())
 app.use(express.json())
 morgan.token("body", function (req, res) {
   return JSON.stringify(req.body);
@@ -53,13 +55,16 @@ app.post("/api/persons", (req, res)=>{
   const {name, number} = req.body
   const id = Math.floor(Math.random() * 501) 
   const person = { name, number, id };
-  persons = [...persons, person]
-  if(!name || !number){
-    return res.status(500).json({error: "all fields required"})
-  }
+
   if(persons.some(person => person.name === name)){
     return res.status(500).json({error: `the name ${name} already exist`})
   }
+
+  if(!name || !number){
+    return res.status(500).json({error: "all fields required"})
+  }
+
+  persons = [...persons, person]
   res.status(201).send(person)
 })
 

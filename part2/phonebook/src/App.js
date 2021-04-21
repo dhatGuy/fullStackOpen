@@ -79,7 +79,7 @@ const App = () => {
           const deletedPerson = persons.filter(
             (person) => obj.id === person.id
           )[0];
-          setPersons(persons.filter((person) => obj.id !== person.id));
+          setPersons(prev => prev.filter((person) => obj.id !== person.id));
           setMessage(`Deleted ${deletedPerson.name}`);
           setTimeout(() => {
             setMessage(null);

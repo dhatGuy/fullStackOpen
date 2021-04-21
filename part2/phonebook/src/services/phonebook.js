@@ -1,9 +1,13 @@
 import axios from "axios";
-const baseURL = `https://dry-shore-18842.herokuapp.com/api/persons`;
+const baseURL =
+  process.env === "production"
+    ? `https://dry-shore-18842.herokuapp.com/api/persons`
+    : `http://localhost:3001/api/persons`;
 
 const getAll = async () => {
   const req = axios.get(baseURL);
   const data = await req;
+  console.log(data);
   return data;
 };
 

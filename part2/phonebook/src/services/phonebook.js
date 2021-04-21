@@ -7,7 +7,6 @@ const baseURL =
 const getAll = async () => {
   const req = axios.get(baseURL);
   const data = await req;
-  console.log(data);
   return data;
 };
 

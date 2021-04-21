@@ -1,7 +1,5 @@
 part1/courseinfo/.env
 .vscode/settings.json
 node_modules
-part3/phonebook/now.json
-part3/phonebook/.env
 part3/phonebook/.eslintignore
 part3/phonebook/vercel.json

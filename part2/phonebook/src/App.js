@@ -18,7 +18,7 @@ const App = () => {
     phoneService
       .getAll()
       .then(({ data }) => setPersons(data))
-      .catch((err) => console.log(err.response));
+      .catch((err) => console.log(err));
   }, []);
 
   const handleAdd = (e) => {
@@ -51,36 +51,23 @@ const App = () => {
             setNumber("");
           })
           .catch((error) => {
-            setError(true);
-            setMessage(error.response.data.error);
-            setTimeout(() => {
-              setMessage(null);
-            }, 4000);
+            console.log(error.response.data);
           });
       }
       return;
     }
-    phoneService
-      .create(newPerson)
-      .then(({ data }) => {
-        setError(false);
-        setMessage(`Added ${data.name}`);
+    phoneService.create(newPerson).then(({ data }) => {
+      setError(false);
+      setMessage(`Added ${data.name}`);
 
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
 
-        setPersons([...persons, data]);
-        setNewName("");
-        setNumber("");
-      })
-      .catch((err) => {
-        setError(true);
-        setMessage(err.response.data.error);
-        setTimeout(() => {
-          setMessage(null);
-        }, 4000);
-      });
+      setPersons([...persons, data]);
+      setNewName("");
+      setNumber("");
+    });
   };
 
   const handleDelete = (obj) => {
@@ -92,7 +79,7 @@ const App = () => {
           const deletedPerson = persons.filter(
             (person) => obj.id === person.id
           )[0];
-          setPersons((prev) => prev.filter((person) => obj.id !== person.id));
+          setPersons(prev => prev.filter((person) => obj.id !== person.id));
           setMessage(`Deleted ${deletedPerson.name}`);
           setTimeout(() => {
             setMessage(null);
@@ -101,9 +88,7 @@ const App = () => {
         .catch(({ response }) => {
           if (response.statusText === "Not Found") {
             setError(true);
-            setMessage(
-              `Information of ${obj.name} has been removed from server already!`
-            );
+            setMessage(`Information of ${obj.name} has been removed from server already!`);
             setTimeout(() => {
               setMessage(null);
             }, 4000);

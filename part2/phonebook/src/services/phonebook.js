@@ -1,7 +1,7 @@
 import axios from "axios";
 const baseURL =
   process.env === "production"
-    ? `https://dry-shore-18842.herokuapp.com/api/persons`
+    ? `https://vast-river-60355.herokuapp.com/api/persons`
     : `http://localhost:3001/api/persons`;
 
 const getAll = async () => {

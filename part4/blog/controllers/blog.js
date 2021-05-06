@@ -51,6 +51,8 @@ blogRouter
     if (blog.user.toString() === user) {
       await Blog.findByIdAndRemove(req.params.id);
       res.status(204).end();
+    } else {
+      res.status(400).end();
     }
   })
   .put(async (req, res) => {

@@ -4,7 +4,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 const blogSchema = new mongoose.Schema({
   title: { type: String },
   author: { type: String },
-  url: { type: String },
+  url: String,
   likes: { type: Number },
   user: {
     type: mongoose.Schema.Types.ObjectId,

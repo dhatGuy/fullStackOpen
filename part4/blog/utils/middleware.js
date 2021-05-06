@@ -2,12 +2,13 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 const errorHandler = (err, req, res, next) => {
+  console.log(err);
   if (process.env.NODE_ENV !== "test") {
     console.log(err.message);
   }
 
   if (err.name === "CastError")
-    return res.status(400).send({ error: "err.message" });
+    return res.status(400).send({ error: err.message });
 
   if (err.name === "ValidationError") {
     return res.status(400).json({ error: err.message });

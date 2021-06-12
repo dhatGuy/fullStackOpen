@@ -1,0 +1,54 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are grat",
+      "id": 1
+    },
+    {
+      "content": "the best featrure ever <3",
+      "id": 2
+    },
+    {
+      "content": "That's life",
+      "id": 3
+    },
+    {
+      "content": "yes!",
+      "id": 4
+    },
+    {
+      "content": "brawl stars",
+      "id": 5
+    },
+    {
+      "content": "familia",
+      "id": 6
+    },
+    {
+      "content": "let go",
+      "id": 7
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "kaltsoon",
+      "number": "045-2323456",
+      "id": 2
+    },
+    {
+      "name": "jane",
+      "number": "23884-696-00",
+      "id": 3
+    },
+    {
+      "name": "nicki",
+      "number": "90-8899-21",
+      "id": 4
+    }
+  ]
+}

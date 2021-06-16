@@ -7,7 +7,6 @@ import {
   Spacer,
   Link,
   Text,
-  useColorModeValue,
   HStack,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
@@ -23,7 +22,7 @@ const Nav = () => {
     });
   };
   return (
-    <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+    <Box bg="gray.200" px={4}>
       <Flex padding="5" justify="space-between" align="center">
         <Box>
           <Heading as={NavLink} to="/" size="md">
@@ -41,7 +40,7 @@ const Nav = () => {
                 rounded={"md"}
                 _hover={{
                   textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
+                  bg: "gray.400",
                 }}
                 to="/blogs"
               >
@@ -56,7 +55,7 @@ const Nav = () => {
                 rounded={"md"}
                 _hover={{
                   textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
+                  bg: "gray.400",
                 }}
                 to="/users"
               >

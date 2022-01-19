@@ -4,13 +4,13 @@ import { ALL_AUTHORS } from "../queries";
 import BirthForm from "./BirthForm";
 
 const Authors = (props) => {
-  const { data, loading } = useQuery(ALL_AUTHORS);
+  const { data, loading, error } = useQuery(ALL_AUTHORS);
   if (!props.show) {
     return null;
   }
 
   if (loading) return <div>loading...</div>;
-  // const authors = []
+  if (error) return <div>error</div>;
 
   return (
     <div>
@@ -22,16 +22,16 @@ const Authors = (props) => {
             <th>born</th>
             <th>books</th>
           </tr>
-          {data.allAuthors.map((a) => (
-            <tr key={a.name}>
-              <td>{a.name}</td>
-              <td>{a.born}</td>
-              <td>{a.bookCount}</td>
+          {data.allAuthors.map((author) => (
+            <tr key={author.name}>
+              <td>{author.name}</td>
+              <td>{author.born}</td>
+              <td>{author.bookCount}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <BirthForm />
+      {props.isLoggedIn && <BirthForm />}
     </div>
   );
 };

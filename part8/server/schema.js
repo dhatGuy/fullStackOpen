@@ -8,6 +8,7 @@ module.exports = gql`
     allBooks(author: String, genre: String): [Book!]!
     allAuthors: [Author!]!
     addBook(input: addBookInput): Book
+    allGenres: [String!]!
   }
 
   type Book {
@@ -16,6 +17,10 @@ module.exports = gql`
     author: Author
     published: Int!
     genres: [String!]!
+  }
+
+  type Subscription {
+    bookAdded: Book!
   }
 
   type Author {

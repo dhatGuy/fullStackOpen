@@ -34,7 +34,6 @@ app.get("/bmi", (req, res) => {
 app.post("/exercises", (req, res) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { daily_exercises, target } = req.body;
-  console.log(req.body);
   if (!daily_exercises || !target) {
     res.status(400).send({ error: "malformatted parameters" });
   }

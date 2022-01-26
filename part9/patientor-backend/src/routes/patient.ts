@@ -20,4 +20,10 @@ router
     res.json(newPatient);
   });
 
+router.route("/:id").get((req, res) => {
+  const { id } = req.params;
+  const patient = patientService.getPatientById(id);
+  res.json(patient);
+});
+
 export default router;
